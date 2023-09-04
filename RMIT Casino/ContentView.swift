@@ -9,13 +9,34 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationStack {
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Color("green-1"), Color("yellow-1")]), startPoint: .top, endPoint: .bottom)
+                    .edgesIgnoringSafeArea(.all)
+                VStack{
+                    Text("Card War").padding(.top, 100)
+                    
+                    Spacer()
+
+                    NavigationLink("PLAY") {
+                        GameView()
+                    }.padding(.bottom, 20).foregroundColor(.black)
+                
+                    NavigationLink("LEADERBOARD") {
+                        LeaderboardView()
+                    }.padding(.bottom, 20).foregroundColor(.black)
+                    
+                    NavigationLink("HOW TO PLAY") {
+                        TutorialView()
+                    }.padding(.bottom, 20).foregroundColor(.black)
+                    
+                    NavigationLink("SETTINGS") {
+                        SettingView()
+                    }.padding(.bottom, 20).foregroundColor(.black)
+                }
+                .padding(.bottom, 70)
+            }
         }
-        .padding()
     }
 }
 
