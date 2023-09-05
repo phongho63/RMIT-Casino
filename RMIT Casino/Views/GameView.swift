@@ -13,8 +13,18 @@ struct GameView: View {
     @State private var randNum2 = 1
     
     @State private var playerScore = 0
-    @State private var CPUScore = 0
+    @State private var playerHP = 100
+    @State private var cpuHP = 100
+    @State private var pointGap = 0
+    
+    @State private var isSelected = false
+    @State private var showWinMessage = false
+    @State private var showLoseMessage = false
+    @State private var isHPZero = false
+    
     var body: some View {
+        
+        // MARK: UI IMPLEMENTATION
         ZStack {
             LinearGradient(gradient: Gradient(colors: [Color("green-1"), Color("yellow-1")]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
@@ -22,58 +32,196 @@ struct GameView: View {
             VStack{
                 
                 Spacer()
-                HStack{
-                    Text("Player's score: " + String(playerScore))
-                        .padding(.all, 7)
-                        .foregroundColor(.white).background(Capsule().fill(Color.black).opacity(0.2))
-                    Spacer()
-                    Text("CPU's score: " + String(CPUScore))
-                        .padding(.all, 7)
-                        .foregroundColor(.white).background(Capsule().fill(Color.black).opacity(0.2))
-                    
-                }
-                .padding(.leading, 20)
-                .padding(.trailing, 20)
                 
-                Spacer()
+                HStack {
+                    Text("Player's score: " + String(playerScore))
+                            .padding(.all, 7)
+                        .foregroundColor(.white).background(Capsule().fill(Color.black).opacity(0.2)).padding(.leading, 20).padding(.bottom, 20)
+                    Spacer()
+                }
                 
                 HStack {
                     VStack (alignment: .center){
+                        (self.isHPZero == true)
+                        ?
+                        (self.showWinMessage == true) ? Image("you-win") : Image("you-lose")
+                        : Image("")
+                        Text("Player's HP: " + String(playerHP))
+                            .padding(.all, 7)
+                            .foregroundColor(.white).background(Capsule().fill(Color.black).opacity(0.2))
+
                         Image("card-" + String(randNum1)).resizable().frame(width: 170, height: 240)
                         Text("Your card")
                     }.padding(.leading, 20)
                     Spacer()
                     VStack (alignment: .center){
+                        (self.isHPZero == true)
+                        ?
+                        (self.showWinMessage == false) ? Image("you-win") : Image("you-lose")
+                        : Image("")
+                        Text("CPU's HP: " + String(cpuHP))
+                            .padding(.all, 7)
+                            .foregroundColor(.white).background(Capsule().fill(Color.black).opacity(0.2))
                         Image("card-" + String(randNum2)).resizable().frame(width: 170, height: 240)
                         Text("CPU's card")
                     }.padding(.trailing, 20)
                 }
                 
                 Spacer()
+        
                 Button {
-                    self.randNum1 = Int.random(in: 2...13)
-                    self.randNum2 = Int.random(in: 2...13)
                     
-                    if self.randNum1 > self.randNum2 {
-                        self.playerScore += 10
-                    }
+                    Deal()
                     
-                    if self.randNum2 > self.randNum1 {
-                        self.CPUScore += 10
-                    }
                 } label: {
                     Text("DEAL").foregroundColor(.black)
                 }
-
+                    
+                
+                Button("GUESS CHANCE"){
+                    self.isSelected = true
+                }.alert("TAKE A CHANCE? \n Bet next deal is a win or lose",isPresented:$isSelected){
+                    Button("Win", action: {SpecialWinDeal()})
+                    Button("Lose", action: {SpecialLoseDeal()})
+                    Button("Cancel", role: .cancel, action: {})
+                }.padding(.top, 20).foregroundColor(.black)
+                
                 Spacer()
+                
             }
             
         }
     }
+    
+    // MARK: GAME LOGIC
+    
+    
+    
+    // MARK: NORMAL DEALING
+    func Deal(){
+        
+        self.randNum1 = Int.random(in: 2...13)
+        self.randNum2 = Int.random(in: 2...13)
+        
+        if self.randNum1 > self.randNum2{
+            PlayerWins()
+        }
+        
+        if self.randNum2 > self.randNum1{
+            CPUWins()
+        }
+    }
+    
+    func PlayerWins(){
+        self.pointGap = self.randNum1 - self.randNum2
+        self.playerScore = self.playerScore + self.pointGap
+        if(self.cpuHP - self.pointGap >= 0){
+            self.isHPZero = false
+            self.cpuHP = self.cpuHP - self.pointGap
+        } else {
+            self.cpuHP = 0
+            self.isHPZero = true
+            self.showWinMessage = true
+        }
+    }
+    
+    func CPUWins(){
+        self.pointGap = self.randNum2 - self.randNum1
+        if(self.playerHP - self.pointGap >= 0){
+            self.isHPZero = false
+            self.playerHP = self.playerHP - self.pointGap
+        } else {
+            self.playerHP = 0
+            self.isHPZero = true
+            self.showWinMessage = false
+        }
+    }
+    
+    // MARK: SPECIAL DEALING
+    func SpecialWinDeal(){
+        self.randNum1 = Int.random(in: 2...13)
+        self.randNum2 = Int.random(in: 2...13)
+        
+        if self.randNum1 > self.randNum2 {
+            SpecialWinDealWin()
+        }
+        if self.randNum1 < self.randNum2 {
+            SpecialWinDealLose()
+        }
+    }
+    func SpecialLoseDeal(){
+        self.randNum1 = Int.random(in: 2...13)
+        self.randNum2 = Int.random(in: 2...13)
+        
+        if self.randNum1 > self.randNum2 {
+            SpecialLoseDealLose()
+            self.showWinMessage = false
+        }
+        if self.randNum1 < self.randNum2 {
+            SpecialLoseDealWin()
+            self.showWinMessage = true
+        }
+    }
+    
+    func SpecialWinDealWin(){
+        self.pointGap = self.randNum1 - self.randNum2
+        self.playerScore = self.playerScore + (self.pointGap * 10)
+        if(self.cpuHP - (self.pointGap * 10) >= 0 ){
+            self.isHPZero = false
+            self.cpuHP = self.cpuHP - (self.pointGap * 10)
+        } else {
+            self.isHPZero = true
+            self.cpuHP = 0
+            self.showWinMessage = true
+        }
+    }
+    
+    func SpecialWinDealLose(){
+        self.pointGap = self.randNum2 - self.randNum1
+        if(self.playerHP - (self.pointGap * 10) >= 0){
+            self.isHPZero = false
+            self.playerHP = self.playerHP - (self.pointGap * 10)
+        } else {
+            self.isHPZero = true
+            self.playerHP = 0
+            self.showWinMessage = false
+        }
+    }
+    
+    func SpecialLoseDealLose(){
+        self.pointGap = self.randNum1 - self.randNum2
+        if(self.playerHP - (self.pointGap * 10) >= 0){
+            self.playerHP = self.playerHP - (self.pointGap * 10)
+            self.isHPZero = false
+        } else {
+            self.playerHP = 0
+            self.isHPZero = true
+            self.showWinMessage = false
+        }
+    }
+
+    
+    func SpecialLoseDealWin(){
+        self.pointGap = self.randNum2 - self.randNum1
+        self.playerScore = self.playerScore + (self.pointGap * 10)
+        if(self.cpuHP - (self.pointGap * 10) >= 0 ){
+            self.cpuHP = self.cpuHP - (self.pointGap * 10)
+            self.isHPZero = false
+        } else {
+            self.cpuHP = 0
+            self.isHPZero = true
+            self.showWinMessage = true
+        }
+    }
+    
 }
+
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView()
     }
 }
+
+
+

@@ -9,7 +9,15 @@ import SwiftUI
 
 struct LeaderboardView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [Color("green-1"), Color("yellow-1")]), startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                Text("Leaderboards").foregroundColor(.white).font(.title).bold()
+                Spacer()
+            }
+        }
     }
 }
 
