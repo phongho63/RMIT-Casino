@@ -14,12 +14,15 @@ struct ContentView: View {
                 LinearGradient(gradient: Gradient(colors: [Color("green-1"), Color("yellow-1")]), startPoint: .top, endPoint: .bottom)
                     .edgesIgnoringSafeArea(.all)
                 VStack{
-                    Text("Card War").padding(.top, 100)
+                    
+                    Image("card-war-banner").resizable().frame(width: 380, height: 380)
+                    
+                    Text("Card War").font(.title).bold().foregroundColor(.white)
                     
                     Spacer()
-
+                    
                     NavigationLink("PLAY") {
-                        GameView()
+                        PlayerRegisterView()
                     }.padding(.bottom, 20).foregroundColor(.black)
                 
                     NavigationLink("LEADERBOARD") {

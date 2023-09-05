@@ -13,11 +13,15 @@ struct LeaderboardView: View {
             LinearGradient(gradient: Gradient(colors: [Color("green-1"), Color("yellow-1")]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
             
-            VStack {
-                Text("Leaderboards").foregroundColor(.white).font(.title).bold()
+        
                 Spacer()
-            }
-        }
+            
+            List{
+                Text("First item").foregroundColor(.black).listRowBackground(Color("yellow-1"))
+                Text("Second item").foregroundColor(.black).listRowBackground(Color("yellow-1"))
+            }.scrollContentBackground(.hidden)
+            
+        }.navigationTitle("Leaderboards").foregroundColor(.white)
     }
 }
 

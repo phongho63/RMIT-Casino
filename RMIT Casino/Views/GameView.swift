@@ -9,10 +9,14 @@ import SwiftUI
 
 struct GameView: View {
     
+    @Binding var username: String
+    
+    @State private var playerScore = 0
+
+    
     @State private var randNum1 = 1
     @State private var randNum2 = 1
     
-    @State private var playerScore = 0
     @State private var playerHP = 100
     @State private var cpuHP = 100
     @State private var pointGap = 0
@@ -22,22 +26,34 @@ struct GameView: View {
     @State private var showLoseMessage = false
     @State private var isHPZero = false
     
+    @State private var isShowingSheet = false
+    
     var body: some View {
         
         // MARK: UI IMPLEMENTATION
         ZStack {
             LinearGradient(gradient: Gradient(colors: [Color("green-1"), Color("yellow-1")]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
+            
 
             VStack{
                 
                 Spacer()
                 
                 HStack {
-                    Text("Player's score: " + String(playerScore))
-                            .padding(.all, 7)
+                    Text("\(username)'s score: " + String(playerScore))
+                        .padding(.all, 7)
                         .foregroundColor(.white).background(Capsule().fill(Color.black).opacity(0.2)).padding(.leading, 20).padding(.bottom, 20)
                     Spacer()
+                    
+                    
+                    Button {
+                        isShowingSheet.toggle()
+                    } label: {
+                        Image(systemName: "info.circle.fill")
+                    }.foregroundColor(.white).padding(.trailing, 20).padding(.bottom, 20)
+
+                    
                 }
                 
                 HStack {
@@ -46,12 +62,12 @@ struct GameView: View {
                         ?
                         (self.showWinMessage == true) ? Image("you-win") : Image("you-lose")
                         : Image("")
-                        Text("Player's HP: " + String(playerHP))
+                        Text("\(username)'s HP: " + String(playerHP))
                             .padding(.all, 7)
                             .foregroundColor(.white).background(Capsule().fill(Color.black).opacity(0.2))
 
                         Image("card-" + String(randNum1)).resizable().frame(width: 170, height: 240)
-                        Text("Your card")
+                        Text("Your card").foregroundColor(.white)
                     }.padding(.leading, 20)
                     Spacer()
                     VStack (alignment: .center){
@@ -63,7 +79,7 @@ struct GameView: View {
                             .padding(.all, 7)
                             .foregroundColor(.white).background(Capsule().fill(Color.black).opacity(0.2))
                         Image("card-" + String(randNum2)).resizable().frame(width: 170, height: 240)
-                        Text("CPU's card")
+                        Text("CPU's card").foregroundColor(.white)
                     }.padding(.trailing, 20)
                 }
                 
@@ -74,22 +90,49 @@ struct GameView: View {
                     Deal()
                     
                 } label: {
-                    Text("DEAL").foregroundColor(.black)
+                    HStack {
+                        Image("dealing-icon").resizable().frame(width: 100, height: 100)
+                        Text("DEAL").padding(.horizontal, 70).padding(.vertical, 15)
+                            .foregroundColor(.black).background(Capsule().fill(Color.white).opacity(0.6)).padding(.leading, 20).padding(.bottom, 20).padding(.top, 20)
+                    }
                 }
                     
                 
-                Button("GUESS CHANCE"){
-                    self.isSelected = true
-                }.alert("TAKE A CHANCE? \n Bet next deal is a win or lose",isPresented:$isSelected){
-                    Button("Win", action: {SpecialWinDeal()})
-                    Button("Lose", action: {SpecialLoseDeal()})
-                    Button("Cancel", role: .cancel, action: {})
-                }.padding(.top, 20).foregroundColor(.black)
+                HStack {
+                    Image("guessing-icon").resizable().frame(width: 70, height: 100).padding(.trailing, 30).padding(.leading, 20)
+                    ZStack {
+                        Image("guessing-frame-icon").resizable().frame(width: 200, height: 70)
+                        Button("GUESS CHANCE"){
+                            self.isSelected = true
+                        }.alert("TAKE A CHANCE? \n Bet next deal is a win or lose",isPresented:$isSelected){
+                            Button("Win", action: {SpecialWinDeal()})
+                            Button("Lose", action: {SpecialLoseDeal()})
+                            Button("Cancel", role: .cancel, action: {})
+                            
+                        }.padding(.top, 20).foregroundColor(.black).padding(.bottom, 20)
+                    }.padding(.top, 20)
+                    
+                }
                 
                 Spacer()
                 
+            }.blur(radius: self.isHPZero ? 5 : 0, opaque: false)
+            if(self.isHPZero == true){
+                ZStack{
+                    Color("green-1").edgesIgnoringSafeArea(.all)
+                    VStack{
+                        Spacer()
+                        Text("Game's over").font(.title).bold().foregroundColor(.white)
+                        (self.showWinMessage == true)
+                        ? Text("You won congratulations!!!").foregroundColor(.white)
+                        : Text("You lost!!! Game over!").foregroundColor(.white)
+                        Spacer()
+                        Text("Return to main menu").foregroundColor(.white).padding(.bottom, 20)
+                    }
+                }.frame(width: 280, height: 400).shadow(color: Color.black,radius: 100).cornerRadius(20)
             }
-            
+        }.navigationBarTitle("Card War").sheet(isPresented: $isShowingSheet){
+            SheetView()
         }
     }
     
@@ -103,19 +146,19 @@ struct GameView: View {
         self.randNum1 = Int.random(in: 2...13)
         self.randNum2 = Int.random(in: 2...13)
         
-        if self.randNum1 > self.randNum2{
-            PlayerWins()
-        }
-        
-        if self.randNum2 > self.randNum1{
-            CPUWins()
-        }
+            if self.randNum1 > self.randNum2{
+                PlayerWins()
+            }
+            
+            if self.randNum2 > self.randNum1{
+                CPUWins()
+            }
     }
     
     func PlayerWins(){
         self.pointGap = self.randNum1 - self.randNum2
         self.playerScore = self.playerScore + self.pointGap
-        if(self.cpuHP - self.pointGap >= 0){
+        if(self.cpuHP - self.pointGap > 0){
             self.isHPZero = false
             self.cpuHP = self.cpuHP - self.pointGap
         } else {
@@ -127,7 +170,7 @@ struct GameView: View {
     
     func CPUWins(){
         self.pointGap = self.randNum2 - self.randNum1
-        if(self.playerHP - self.pointGap >= 0){
+        if(self.playerHP - self.pointGap > 0){
             self.isHPZero = false
             self.playerHP = self.playerHP - self.pointGap
         } else {
@@ -166,7 +209,7 @@ struct GameView: View {
     func SpecialWinDealWin(){
         self.pointGap = self.randNum1 - self.randNum2
         self.playerScore = self.playerScore + (self.pointGap * 10)
-        if(self.cpuHP - (self.pointGap * 10) >= 0 ){
+        if(self.cpuHP - (self.pointGap * 10) > 0 ){
             self.isHPZero = false
             self.cpuHP = self.cpuHP - (self.pointGap * 10)
         } else {
@@ -178,7 +221,7 @@ struct GameView: View {
     
     func SpecialWinDealLose(){
         self.pointGap = self.randNum2 - self.randNum1
-        if(self.playerHP - (self.pointGap * 10) >= 0){
+        if(self.playerHP - (self.pointGap * 10) > 0){
             self.isHPZero = false
             self.playerHP = self.playerHP - (self.pointGap * 10)
         } else {
@@ -190,7 +233,7 @@ struct GameView: View {
     
     func SpecialLoseDealLose(){
         self.pointGap = self.randNum1 - self.randNum2
-        if(self.playerHP - (self.pointGap * 10) >= 0){
+        if(self.playerHP - (self.pointGap * 10) > 0){
             self.playerHP = self.playerHP - (self.pointGap * 10)
             self.isHPZero = false
         } else {
@@ -204,7 +247,7 @@ struct GameView: View {
     func SpecialLoseDealWin(){
         self.pointGap = self.randNum2 - self.randNum1
         self.playerScore = self.playerScore + (self.pointGap * 10)
-        if(self.cpuHP - (self.pointGap * 10) >= 0 ){
+        if(self.cpuHP - (self.pointGap * 10) > 0 ){
             self.cpuHP = self.cpuHP - (self.pointGap * 10)
             self.isHPZero = false
         } else {
@@ -217,11 +260,11 @@ struct GameView: View {
 }
 
 
-struct GameView_Previews: PreviewProvider {
-    static var previews: some View {
-        GameView()
-    }
-}
-
+//struct GameView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GameView()
+//    }
+//}
+//
 
 
