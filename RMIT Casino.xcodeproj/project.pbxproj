@@ -15,6 +15,17 @@
 		317B2B972A861C1B00E0C60F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317B2B962A861C1B00E0C60F /* ContentView.swift */; };
 		317B2B992A861C1C00E0C60F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317B2B982A861C1C00E0C60F /* Assets.xcassets */; };
 		317B2B9C2A861C1C00E0C60F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317B2B9B2A861C1C00E0C60F /* Preview Assets.xcassets */; };
+		31930B002AA8082D00874F3C /* PlayerDatabaseEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31930AFF2AA8082D00874F3C /* PlayerDatabaseEntity.swift */; };
+		31930B022AA80D3600874F3C /* DataRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31930B012AA80D3600874F3C /* DataRowView.swift */; };
+		31930B042AA84B7900874F3C /* GlobalEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31930B032AA84B7900874F3C /* GlobalEntity.swift */; };
+		31930B072AA8652700874F3C /* flip-card.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 31930B062AA8652700874F3C /* flip-card.mp3 */; };
+		31930B0A2AA8659100874F3C /* PlaySound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31930B092AA8659100874F3C /* PlaySound.swift */; };
+		31930B0C2AA8680600874F3C /* boba-date.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 31930B0B2AA8680600874F3C /* boba-date.mp3 */; };
+		31930B0E2AA869B100874F3C /* mochi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 31930B0D2AA869B100874F3C /* mochi.mp3 */; };
+		31930B102AA86A2500874F3C /* sharou.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 31930B0F2AA86A2500874F3C /* sharou.mp3 */; };
+		31930B122AA86AFB00874F3C /* win-effect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 31930B112AA86AFB00874F3C /* win-effect.mp3 */; };
+		31930B142AA86B0300874F3C /* lose-effect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 31930B132AA86B0300874F3C /* lose-effect.mp3 */; };
+		31930B162AA86B8C00874F3C /* pencil-check.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 31930B152AA86B8C00874F3C /* pencil-check.mp3 */; };
 		3193414F2AA6FF670003F4E3 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3193414E2AA6FF670003F4E3 /* SheetView.swift */; };
 		319341512AA7122F0003F4E3 /* PlayerRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319341502AA7122F0003F4E3 /* PlayerRegisterView.swift */; };
 		319341542AA714850003F4E3 /* PlayerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319341532AA714850003F4E3 /* PlayerEntity.swift */; };
@@ -30,6 +41,17 @@
 		317B2B962A861C1B00E0C60F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		317B2B982A861C1C00E0C60F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		317B2B9B2A861C1C00E0C60F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		31930AFF2AA8082D00874F3C /* PlayerDatabaseEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDatabaseEntity.swift; sourceTree = "<group>"; };
+		31930B012AA80D3600874F3C /* DataRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRowView.swift; sourceTree = "<group>"; };
+		31930B032AA84B7900874F3C /* GlobalEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalEntity.swift; sourceTree = "<group>"; };
+		31930B062AA8652700874F3C /* flip-card.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "flip-card.mp3"; sourceTree = "<group>"; };
+		31930B092AA8659100874F3C /* PlaySound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySound.swift; sourceTree = "<group>"; };
+		31930B0B2AA8680600874F3C /* boba-date.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "boba-date.mp3"; sourceTree = "<group>"; };
+		31930B0D2AA869B100874F3C /* mochi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mochi.mp3; sourceTree = "<group>"; };
+		31930B0F2AA86A2500874F3C /* sharou.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sharou.mp3; sourceTree = "<group>"; };
+		31930B112AA86AFB00874F3C /* win-effect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "win-effect.mp3"; sourceTree = "<group>"; };
+		31930B132AA86B0300874F3C /* lose-effect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "lose-effect.mp3"; sourceTree = "<group>"; };
+		31930B152AA86B8C00874F3C /* pencil-check.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "pencil-check.mp3"; sourceTree = "<group>"; };
 		3193414E2AA6FF670003F4E3 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		319341502AA7122F0003F4E3 /* PlayerRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRegisterView.swift; sourceTree = "<group>"; };
 		319341532AA714850003F4E3 /* PlayerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerEntity.swift; sourceTree = "<group>"; };
@@ -55,6 +77,7 @@
 				316D0E3F2AA5D02F009B4E08 /* SettingView.swift */,
 				3193414E2AA6FF670003F4E3 /* SheetView.swift */,
 				319341502AA7122F0003F4E3 /* PlayerRegisterView.swift */,
+				31930B012AA80D3600874F3C /* DataRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -78,6 +101,8 @@
 		317B2B932A861C1B00E0C60F /* RMIT Casino */ = {
 			isa = PBXGroup;
 			children = (
+				31930B082AA8658400874F3C /* Assists */,
+				31930B052AA8650200874F3C /* AudioEffects */,
 				319341522AA714770003F4E3 /* Entities */,
 				316D0E412AA5D0D1009B4E08 /* Views */,
 				317B2B942A861C1B00E0C60F /* RMIT_CasinoApp.swift */,
@@ -96,10 +121,34 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		31930B052AA8650200874F3C /* AudioEffects */ = {
+			isa = PBXGroup;
+			children = (
+				31930B152AA86B8C00874F3C /* pencil-check.mp3 */,
+				31930B132AA86B0300874F3C /* lose-effect.mp3 */,
+				31930B112AA86AFB00874F3C /* win-effect.mp3 */,
+				31930B0F2AA86A2500874F3C /* sharou.mp3 */,
+				31930B0D2AA869B100874F3C /* mochi.mp3 */,
+				31930B0B2AA8680600874F3C /* boba-date.mp3 */,
+				31930B062AA8652700874F3C /* flip-card.mp3 */,
+			);
+			path = AudioEffects;
+			sourceTree = "<group>";
+		};
+		31930B082AA8658400874F3C /* Assists */ = {
+			isa = PBXGroup;
+			children = (
+				31930B092AA8659100874F3C /* PlaySound.swift */,
+			);
+			path = Assists;
+			sourceTree = "<group>";
+		};
 		319341522AA714770003F4E3 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				319341532AA714850003F4E3 /* PlayerEntity.swift */,
+				31930AFF2AA8082D00874F3C /* PlayerDatabaseEntity.swift */,
+				31930B032AA84B7900874F3C /* GlobalEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -162,7 +211,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31930B072AA8652700874F3C /* flip-card.mp3 in Resources */,
 				317B2B9C2A861C1C00E0C60F /* Preview Assets.xcassets in Resources */,
+				31930B162AA86B8C00874F3C /* pencil-check.mp3 in Resources */,
+				31930B142AA86B0300874F3C /* lose-effect.mp3 in Resources */,
+				31930B0C2AA8680600874F3C /* boba-date.mp3 in Resources */,
+				31930B0E2AA869B100874F3C /* mochi.mp3 in Resources */,
+				31930B122AA86AFB00874F3C /* win-effect.mp3 in Resources */,
+				31930B102AA86A2500874F3C /* sharou.mp3 in Resources */,
 				317B2B992A861C1C00E0C60F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,12 +232,16 @@
 			files = (
 				319341512AA7122F0003F4E3 /* PlayerRegisterView.swift in Sources */,
 				316D0E3C2AA5D011009B4E08 /* LeaderboardView.swift in Sources */,
+				31930B022AA80D3600874F3C /* DataRowView.swift in Sources */,
 				3193414F2AA6FF670003F4E3 /* SheetView.swift in Sources */,
 				317B2B972A861C1B00E0C60F /* ContentView.swift in Sources */,
 				316D0E3A2AA5CE8D009B4E08 /* GameView.swift in Sources */,
 				316D0E402AA5D02F009B4E08 /* SettingView.swift in Sources */,
+				31930B042AA84B7900874F3C /* GlobalEntity.swift in Sources */,
 				319341542AA714850003F4E3 /* PlayerEntity.swift in Sources */,
 				316D0E3E2AA5D021009B4E08 /* TutorialView.swift in Sources */,
+				31930B002AA8082D00874F3C /* PlayerDatabaseEntity.swift in Sources */,
+				31930B0A2AA8659100874F3C /* PlaySound.swift in Sources */,
 				317B2B952A861C1B00E0C60F /* RMIT_CasinoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +374,8 @@
 				DEVELOPMENT_TEAM = Z9HZT8C4MB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Card War";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -343,6 +405,8 @@
 				DEVELOPMENT_TEAM = Z9HZT8C4MB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Card War";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.card-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

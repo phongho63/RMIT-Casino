@@ -5,13 +5,11 @@
 //  Created by Ho Buu Quoc Phong on 05/09/2023.
 //
 
-import SwiftUI
 import Foundation
+import SwiftUI
 
-struct PlayerEntity: Identifiable {
-    let id = UUID()
-    let username: String
-    let score: Int
-    let achievements: String
-    
-}
+struct PlayerEntity {
+    @AppStorage("username") var username: String = ""
+    @AppStorage("score") var score: Int = 0
+    @AppStorage("achievement") var achievement : String = ""
+    }

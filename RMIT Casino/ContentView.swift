@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var globalString = GlobalString()
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -21,9 +24,12 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    NavigationLink("PLAY") {
-                        PlayerRegisterView()
-                    }.padding(.bottom, 20).foregroundColor(.black)
+                    HStack {
+                        NavigationLink("PLAY    (Difficulty: \(globalString.difficulty))") {
+                            PlayerRegisterView()
+                        }.padding(.bottom, 20).foregroundColor(.black)
+                        
+                    }
                 
                     NavigationLink("LEADERBOARD") {
                         LeaderboardView()
@@ -39,12 +45,16 @@ struct ContentView: View {
                 }
                 .padding(.bottom, 70)
             }
-        }
+        }.onAppear(
+            perform: {
+                playSound(sound: "sharou", type: "mp3")
+            }
+        )
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

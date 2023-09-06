@@ -11,6 +11,7 @@ struct PlayerRegisterView: View {
     
     @State private var username: String = ""
     @State private var isGameViewActive = false
+    @StateObject var globalString = GlobalString()
     
     var body: some View {
         NavigationStack{
@@ -31,7 +32,7 @@ struct PlayerRegisterView: View {
                         
                         
                         NavigationLink("Enter") {
-                            GameView(username: $username)
+                            GameView(username: $username, difficulty: $globalString.difficulty)
                         }.padding(.bottom, 20).foregroundColor(.black).padding(.top, 10)
                         
                     }.padding(.top, 20)

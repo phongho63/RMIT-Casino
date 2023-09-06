@@ -28,7 +28,9 @@ struct TutorialView: View {
                     
                 }.padding(.horizontal, 20)
             }
-        }.navigationTitle("Tutorial")
+        }.onAppear(perform: {
+            playSound(sound: "mochi", type: "mp3")
+        }).navigationTitle("Tutorial")
     }
 }
 
