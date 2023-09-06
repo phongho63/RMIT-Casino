@@ -16,31 +16,44 @@ struct PlayerRegisterView: View {
     
     @State private var username: String = ""
     @State private var isGameViewActive = false
+    
+    // Creating a global variable to grab difficulty for game view
     @StateObject var globalString = GlobalString()
     
     var body: some View {
+        
         NavigationStack{
+            
             ZStack{
+                
                 LinearGradient(gradient: Gradient(colors: [Color("green-1"), Color("yellow-1")]), startPoint: .top, endPoint: .bottom)
                     .edgesIgnoringSafeArea(.all)
                 
-
+                ZStack{
+                    
+                    Color("yellow-2")
+                    
+                }
+                .frame(height: 140)
                 
-              
-                    ZStack{
-                        Color("yellow-2")
-                    }.frame(height: 140)
-                    VStack(alignment: .center){
-                        Text("Please enter your player name: ")
+                VStack(alignment: .center){
+                    
+                    Text("Please enter your player name: ")
+                    
+                    // Saving player name inputs for binding
+                    TextField("Username", text: $username).textFieldStyle(.roundedBorder).padding(.horizontal, 20)
+                    
+                    NavigationLink("Enter") {
                         
-                        TextField("Username", text: $username).textFieldStyle(.roundedBorder).padding(.horizontal, 20)
+                        GameView(username: $username, difficulty: $globalString.difficulty)
                         
-                        
-                        NavigationLink("Enter") {
-                            GameView(username: $username, difficulty: $globalString.difficulty)
-                        }.padding(.bottom, 20).foregroundColor(.black).padding(.top, 10)
-                        
-                    }.padding(.top, 20)
+                    }
+                    .padding(.bottom, 20)
+                    .foregroundColor(.black)
+                    .padding(.top, 10)
+                    
+                }
+                .padding(.top, 20)
                 
 
             }

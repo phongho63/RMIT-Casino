@@ -13,6 +13,7 @@
 
 import SwiftUI
 
+// Global variable creation
 class GlobalString: ObservableObject{
     @AppStorage ("difficulty") var difficulty = "Standard"
     

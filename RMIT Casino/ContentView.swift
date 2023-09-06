@@ -17,10 +17,14 @@ struct ContentView: View {
     @StateObject var globalString = GlobalString()
 
     var body: some View {
+        
         NavigationStack {
+            
             ZStack {
+                
                 LinearGradient(gradient: Gradient(colors: [Color("green-1"), Color("yellow-1")]), startPoint: .top, endPoint: .bottom)
                     .edgesIgnoringSafeArea(.all)
+                
                 VStack{
                     
                     Image("card-war-banner").resizable().frame(width: 380, height: 380)
@@ -29,31 +33,42 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    HStack {
-                        NavigationLink("PLAY    (Difficulty: \(globalString.difficulty))") {
-                            PlayerRegisterView()
-                        }.padding(.bottom, 20).foregroundColor(.black)
-                        
+                    // MARK: MAIN FEATURE VIEWS
+                    
+                    // Adding a difficulty display outside
+                    NavigationLink("PLAY    (Difficulty: \(globalString.difficulty))") {
+                        PlayerRegisterView()
                     }
-                
+                    .padding(.bottom, 20)
+                    .foregroundColor(.black)
+                        
                     NavigationLink("LEADERBOARD") {
                         LeaderboardView()
-                    }.padding(.bottom, 20).foregroundColor(.black)
+                    }
+                    .padding(.bottom, 20)
+                    .foregroundColor(.black)
                     
                     NavigationLink("HOW TO PLAY") {
                         TutorialView()
-                    }.padding(.bottom, 20).foregroundColor(.black)
+                    }
+                    .padding(.bottom, 20)
+                    .foregroundColor(.black)
                     
                     NavigationLink("SETTINGS") {
                         SettingView()
-                    }.padding(.bottom, 20).foregroundColor(.black)
+                    }
+                    .padding(.bottom, 20)
+                    .foregroundColor(.black)
                 }
                 .padding(.bottom, 70)
             }
-        }.onAppear(
+        }
+        .onAppear(
+            // Background music implementations
             perform: {
                 playSound(sound: "sharou", type: "mp3")
             }
+            
         )
     }
 }

@@ -43,148 +43,288 @@ struct GameView: View {
     var body: some View {
         
         // MARK: UI IMPLEMENTATION
+        
         NavigationStack{
+            
             ZStack {
+                
                 LinearGradient(gradient: Gradient(colors: [Color("green-1"), Color("yellow-1")]), startPoint: .top, endPoint: .bottom)
                     .edgesIgnoringSafeArea(.all)
                 
-
                 VStack{
                     
                     Spacer()
                     
                     HStack {
+                        
                         Text("\(username)'s score: " + String(playerScore))
                             .padding(.all, 7)
-                            .foregroundColor(.white).background(Capsule().fill(Color.black).opacity(0.2)).padding(.leading, 20).padding(.bottom, 20)
+                            .foregroundColor(.white)
+                            .background(Capsule().fill(Color.black).opacity(0.2))
+                            .padding(.leading, 20)
+                            .padding(.bottom, 20)
+                        
                         Spacer()
                         
-                        
+                        // MARK: IMPLEMENT SHEET LOGIC
                         Button {
+                            
                             isShowingSheet.toggle()
+                            
                         } label: {
+                            
                             Image(systemName: "info.circle.fill")
-                        }.foregroundColor(.white).padding(.trailing, 20).padding(.bottom, 20)
+                            
+                        }
+                        .foregroundColor(.white)
+                        .padding(.trailing, 20)
+                        .padding(.bottom, 20)
 
                         
                     }
                     
                     HStack {
+                        
                         VStack (alignment: .center){
+                            
+                            // Small display on top of the card for both players
                             (self.isHPZero == true)
                             ?
                             (self.showWinMessage == true) ? Image("you-win") : Image("you-lose")
-                            : Image("")
+                            :
+                            Image("")
+                            
+                            // MARK: IMPLEMENT USER AND CPU CARD AND VALUES
                             Text("\(username)'s HP: " + String(playerHP))
                                 .padding(.all, 7)
-                                .foregroundColor(.white).background(Capsule().fill(Color.black).opacity(0.2))
+                                .foregroundColor(.white)
+                                .background(Capsule().fill(Color.black).opacity(0.2))
 
-                            Image("card-" + String(randNum1)).resizable().frame(width: 170, height: 240).offset(y: animateCard ? 0 : -30)
-                            Text("Your card").foregroundColor(.white)
-                        }.padding(.leading, 20)
+                            Image("card-" + String(randNum1))
+                                .resizable()
+                                .frame(width: 170, height: 240)
+                                .offset(y: animateCard ? 0 : -30)
+                            
+                            Text("Your card")
+                                .foregroundColor(.white)
+                            
+                        }
+                        .padding(.leading, 20)
+                        
                         Spacer()
+                        
                         VStack (alignment: .center){
+                            
                             (self.isHPZero == true)
                             ?
                             (self.showWinMessage == false) ? Image("you-win") : Image("you-lose")
-                            : Image("")
+                            :
+                            Image("")
+                            
                             Text("CPU's HP: " + String(cpuHP))
                                 .padding(.all, 7)
-                                .foregroundColor(.white).background(Capsule().fill(Color.black).opacity(0.2))
-                            Image("card-" + String(randNum2)).resizable().frame(width: 170, height: 240).offset(y: animateCard ? 0 : -30)
-                            Text("CPU's card").foregroundColor(.white)
-                        }.padding(.trailing, 20)
+                                .foregroundColor(.white)
+                                .background(Capsule().fill(Color.black).opacity(0.2))
+                            
+                            Image("card-" + String(randNum2))
+                                .resizable()
+                                .frame(width: 170, height: 240)
+                                .offset(y: animateCard ? 0 : -30)
+                            
+                            Text("CPU's card")
+                                .foregroundColor(.white)
+                            
+                        }
+                        .padding(.trailing, 20)
                     }
                     
                     Spacer()
             
                     Button {
+                        
+                        // MARK: DEALING HERE
                         withAnimation {
                             
                             self.animateCard = false
+                            
                         }
                         
+                        // Dealing logic
                         Deal()
+                        
+                        // Sound effects
                         playSound(sound: "flip-card", type: "mp3")
                         
                         withAnimation {
+                            
                             self.animateCard = true
+                            
                         }
                         
                     } label: {
+                        
                         HStack {
-                            Image("dealing-icon").resizable().frame(width: 100, height: 100)
-                            Text("DEAL").padding(.horizontal, 70).padding(.vertical, 15)
-                                .foregroundColor(.black).background(Capsule().fill(Color.white).opacity(0.6)).padding(.leading, 20).padding(.bottom, 20).padding(.top, 20)
+                            
+                            Image("dealing-icon")
+                                .resizable()
+                                .frame(width: 100, height: 100)
+                            
+                            Text("DEAL")
+                                .padding(.horizontal, 70)
+                                .padding(.vertical, 15)
+                                .foregroundColor(.black)
+                                .background(Capsule().fill(Color.white).opacity(0.6))
+                                .padding(.leading, 20)
+                                .padding(.bottom, 20)
+                                .padding(.top, 20)
+                            
                         }
+                        
                     }
                         
                     
                     HStack {
-                        Image("guessing-icon").resizable().frame(width: 70, height: 100).padding(.trailing, 30).padding(.leading, 20)
+                        
+                        Image("guessing-icon")
+                            .resizable()
+                            .frame(width: 70, height: 100)
+                            .padding(.trailing, 30)
+                            .padding(.leading, 20)
+                        
                         ZStack {
-                            Image("guessing-frame-icon").resizable().frame(width: 200, height: 70)
+                            
+                            Image("guessing-frame-icon")
+                                .resizable()
+                                .frame(width: 200, height: 70)
+                            
                             Button("GUESS CHANCE"){
+                                
                                 self.isSelected = true
-                            }.alert("TAKE A CHANCE? \n Bet next deal is a win or lose",isPresented:$isSelected){
+                                
+                            }
+                            .alert("TAKE A CHANCE? \n Bet next deal is a win or lose",isPresented:$isSelected){
+                                
+                                // MARK: SPECIAL DEALING HERE
                                 Button("Win", action: {
+                                    
+                                    // Special bet logic
                                     SpecialWinDeal()
+                                    
+                                    // Sound effects
                                     playSound(sound: "flip-card", type: "mp3")
+                                    
                                 })
+                                
                                 Button("Lose", action: {
+                                    
+                                    // Special bet logic
                                     SpecialLoseDeal()
+                                    
+                                    // Sound effects
                                     playSound(sound: "flip-card", type: "mp3")
+                                    
                                 })
+                                
                                 Button("Cancel", role: .cancel, action: {})
                                 
-                            }.padding(.top, 20).foregroundColor(.black).padding(.bottom, 20)
-                        }.padding(.top, 20)
+                            }
+                            .padding(.top, 20)
+                            .foregroundColor(.black)
+                            .padding(.bottom, 20)
+                            
+                        }
+                        .padding(.top, 20)
                         
                     }
                     
                     Spacer()
                     
-                }.blur(radius: self.isHPZero ? 5 : 0, opaque: false)
+                }
+                .blur(radius: self.isHPZero ? 5 : 0, opaque: false)
+                
                 if(self.isHPZero == true){
+                    
                     ZStack{
+                        
                         Color("green-1").edgesIgnoringSafeArea(.all)
+                        
                         VStack{
+                            
                             Spacer()
-                            Text("Game's over").font(.title).bold().foregroundColor(.white)
+                            
+                            Text("Game's over")
+                                .font(.title)
+                                .bold()
+                                .foregroundColor(.white)
+                            
                             (self.showWinMessage == true)
-                            ? VStack {
-                                Text("You won congratulations!!!").foregroundColor(.white)
+                            ?
+                            VStack {
+                                
+                                Text("You won congratulations!!!")
+                                    .foregroundColor(.white)
+                                
                                 Image("you-win")
-                            }.onAppear(perform: {
+                                
+                            }
+                            .onAppear(perform: {
+                                
                                 playSound(sound: "win-effect", type: "mp3")
+                                
                             })
-                            : VStack {
-                                Text("You lost!!! Game over!").foregroundColor(.white)
+                            :
+                            VStack {
+                                
+                                Text("You lost!!! Game over!")
+                                    .foregroundColor(.white)
+                                
                                 Image("you-lose")
-                            }.onAppear(perform: {
+                                
+                            }
+                            .onAppear(perform: {
+                                
                                 playSound(sound: "lose-effect", type: "mp3")
+                                
                             })
                             
                             Spacer()
-                            Text("Kindly navigate back to homescreen for a restart").foregroundColor(.white).padding(.bottom, 20).padding(.horizontal, 20)
+                            
+                            Text("Kindly navigate back to homescreen for a restart")
+                                .foregroundColor(.white)
+                                .padding(.bottom, 20)
+                                .padding(.horizontal, 20)
+                            
                             Button {
+                                
+                                // Update leaderboard logic
                                 updateLeaderboard()
+                                
                                 playSound(sound: "pencil-check", type: "mp3")
+                                
                             } label: {
-                                Text("Add your score to the leaderboards").padding(.all, 9).overlay(
-                                    RoundedRectangle(cornerRadius: 16)
-                                        .stroke(Color("yellow-2"), lineWidth: 4)
-                                ).padding(.bottom, 20)
+                                
+                                Text("Add your score to the leaderboards")
+                                    .padding(.all, 9)
+                                    .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color("yellow-2"), lineWidth: 4))
+                                    .padding(.bottom, 20)
+                                
                             }
 
                         }
-                    }.frame(width: 280, height: 400).shadow(color: Color.black,radius: 100).cornerRadius(20)
+                    }
+                    .frame(width: 280, height: 400)
+                    .shadow(color: Color.black,radius: 100)
+                    .cornerRadius(20)
+                    
                 }
-            }.navigationBarTitle("Card War").sheet(isPresented: $isShowingSheet){
+                
+            }
+            .navigationBarTitle("Card War").sheet(isPresented: $isShowingSheet){
+                
                 SheetView()
+                
+            }
         }
-        }
-        
     }
     
     // MARK: GAME LOGIC
@@ -192,6 +332,7 @@ struct GameView: View {
     
     
     // MARK: NORMAL DEALING
+    
     func Deal(){
         
         self.randNum1 = Int.random(in: 2...13)
@@ -228,6 +369,7 @@ struct GameView: View {
     }
     
     func PlayerWins(){
+        
         self.pointGap = self.randNum1 - self.randNum2
         self.playerScore = self.playerScore + self.pointGap
         if(self.cpuHP - self.pointGap > 0){
@@ -241,6 +383,7 @@ struct GameView: View {
     }
     
     func CPUWins(){
+        
         self.pointGap = self.randNum2 - self.randNum1
         if(self.playerHP - self.pointGap > 0){
             self.isHPZero = false
@@ -253,7 +396,9 @@ struct GameView: View {
     }
     
     // MARK: SPECIAL DEALING
+    
     func SpecialWinDeal(){
+        
         self.randNum1 = Int.random(in: 2...13)
         
         if (difficulty == "Hard") {
@@ -285,7 +430,9 @@ struct GameView: View {
             SpecialWinDealLose()
         }
     }
+    
     func SpecialLoseDeal(){
+        
         self.randNum1 = Int.random(in: 2...13)
         
         if (difficulty == "Hard") {
@@ -320,6 +467,7 @@ struct GameView: View {
     }
     
     func SpecialWinDealWin(){
+        
         self.pointGap = self.randNum1 - self.randNum2
         self.playerScore = self.playerScore + (self.pointGap * 10)
         if(self.cpuHP - (self.pointGap * 10) > 0 ){
@@ -333,6 +481,7 @@ struct GameView: View {
     }
     
     func SpecialWinDealLose(){
+        
         self.pointGap = self.randNum2 - self.randNum1
         if(self.playerHP - (self.pointGap * 10) > 0){
             self.isHPZero = false
@@ -345,6 +494,7 @@ struct GameView: View {
     }
     
     func SpecialLoseDealLose(){
+        
         self.pointGap = self.randNum1 - self.randNum2
         if(self.playerHP - (self.pointGap * 10) > 0){
             self.playerHP = self.playerHP - (self.pointGap * 10)
@@ -358,6 +508,7 @@ struct GameView: View {
 
     
     func SpecialLoseDealWin(){
+        
         self.pointGap = self.randNum2 - self.randNum1
         self.playerScore = self.playerScore + (self.pointGap * 10)
         if(self.cpuHP - (self.pointGap * 10) > 0 ){
@@ -371,6 +522,7 @@ struct GameView: View {
     }
     
     func updateLeaderboard(){
+        
         if(self.showWinMessage == true){
             addPlayer(playerName: username, playerScore: playerScore, playerAchievement: difficulty)
         } else {

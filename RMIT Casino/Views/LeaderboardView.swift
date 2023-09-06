@@ -15,28 +15,41 @@ import SwiftUI
 struct LeaderboardView: View {
     
     var body: some View {
+        
         ZStack {
+            
             LinearGradient(gradient: Gradient(colors: [Color("green-1"), Color("yellow-1")]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
     
             if(playersEntity.isEmpty){
+                
+                //Display a notify text if there is nothing to display
                 VStack {
-                    Text("Currently there is nothing to display").foregroundColor(.white)
-                }
-            } else {
-                List(sortedEntities, id: \.username){
-                    player in DataRowView(player: player).listRowBackground(Color("yellow-1"))
                     
-                }.scrollContentBackground(.hidden)
+                    Text("Currently there is nothing to display")
+                        .foregroundColor(.white)
+                    
+                }
+                
+            } else {
+                
+                List(sortedEntities, id: \.username){
+                    
+                    //Displaying data row when there is an object to display
+                    player in DataRowView(player: player)
+                        .listRowBackground(Color("yellow-1"))
+                    
+                }
+                .scrollContentBackground(.hidden)
             }
-        }.onAppear(perform: {
+        }
+        .onAppear(perform: {
+            
+            // Adding background music
             playSound(sound: "boba-date", type: "mp3")
-        }).navigationTitle("Leaderboards").foregroundColor(.white)
+            
+        })
+        .navigationTitle("Leaderboards").foregroundColor(.white)
     }
 }
 
-//struct LeaderboardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LeaderboardView()
-//    }
-//}

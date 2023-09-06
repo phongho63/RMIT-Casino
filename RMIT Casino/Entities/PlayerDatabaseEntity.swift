@@ -14,6 +14,7 @@
 import Foundation
 import CoreLocation
 
+// Creating a list of player objects for achievement
 var playersEntity: [PlayerEntity] = []
     
     

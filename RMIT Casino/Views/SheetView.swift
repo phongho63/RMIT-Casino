@@ -13,11 +13,16 @@
 import SwiftUI
 
 struct SheetView: View {
+    
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
+        
+        // Sheet view for tutorial
         TutorialView()
+        
     }
+    
 }
 
 struct SheetView_Previews: PreviewProvider {

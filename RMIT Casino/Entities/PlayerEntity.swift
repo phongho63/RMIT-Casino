@@ -14,7 +14,10 @@ import Foundation
 import SwiftUI
 
 struct PlayerEntity {
+    
+    // Creating player objects to store
     @AppStorage("username") var username: String = ""
     @AppStorage("score") var score: Int = 0
     @AppStorage("achievement") var achievement : String = ""
+    
     }
