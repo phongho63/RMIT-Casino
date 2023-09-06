@@ -127,8 +127,14 @@ struct GameView: View {
                             Button("GUESS CHANCE"){
                                 self.isSelected = true
                             }.alert("TAKE A CHANCE? \n Bet next deal is a win or lose",isPresented:$isSelected){
-                                Button("Win", action: {SpecialWinDeal()})
-                                Button("Lose", action: {SpecialLoseDeal()})
+                                Button("Win", action: {
+                                    SpecialWinDeal()
+                                    playSound(sound: "flip-card", type: "mp3")
+                                })
+                                Button("Lose", action: {
+                                    SpecialLoseDeal()
+                                    playSound(sound: "flip-card", type: "mp3")
+                                })
                                 Button("Cancel", role: .cancel, action: {})
                                 
                             }.padding(.top, 20).foregroundColor(.black).padding(.bottom, 20)
